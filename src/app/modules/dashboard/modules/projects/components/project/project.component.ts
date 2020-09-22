@@ -52,7 +52,6 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
 
     this.form = this.fb.group({
       id: [null],
-      userId: [null, Validators.required],
       code: [null, Validators.required],
       title: [null, Validators.required],
       description: [null],
@@ -62,7 +61,7 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
       this.project$.pipe(untilDestroyed(this)).subscribe(project => {
         this.project = project;
 
-        const { id, code, title, description, userId } = project;
+        const { id, code, title, description } = project;
 
         this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
         this.breadcrumbItems = [
@@ -73,7 +72,7 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
           },
         ];
 
-        this.form.patchValue({ id, code, title, description, userId });
+        this.form.patchValue({ id, code, title, description });
       });
     } else {
       this.form.get('userId').patchValue(this.store.selectSnapshot(AuthState.getCurrentUser).id);
