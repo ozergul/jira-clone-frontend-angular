@@ -7,7 +7,9 @@ import { uuid } from '../../../utils';
   selector: 'atoms-textarea',
   template: `
     <div class="form-group" [ngClass]="fieldClass">
-      <label *ngIf="inputLabel" [for]="inputId" class="label">{{ inputLabel | translate }}         <span *ngIf="required" class="icon-required">*</span></label>
+      <label *ngIf="inputLabel" [for]="inputId" class="label"
+        >{{ inputLabel | translate }} <span *ngIf="required" class="icon-required">*</span></label
+      >
 
       <div class="input-group flex-nowrap">
         <div class="input-group-prepend" *ngIf="iconName">
@@ -27,7 +29,6 @@ import { uuid } from '../../../utils';
       <div *ngIf="invalidMessage" class="invalid-feedback" [style.display]="invalidMessage ? 'block' : 'none'">
         {{ invalidMessage | translate }}
       </div>
-
     </div>
   `,
   encapsulation: ViewEncapsulation.None,

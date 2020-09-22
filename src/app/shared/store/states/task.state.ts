@@ -30,6 +30,6 @@ export class TaskState {
 
   @Action(TasksGet)
   tasksGet({ patchState }: StateContext<TaskStateModel.State>, { payload }: TasksGet) {
-    return this.taskService.getTasks(payload.page, payload.limit).pipe(tap((tasks) => patchState({ tasks })));
+    return this.taskService.getTasks(payload.page, payload.limit).pipe(tap(tasks => patchState({ tasks })));
   }
 }

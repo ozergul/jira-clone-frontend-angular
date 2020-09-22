@@ -17,6 +17,6 @@ export class ModalService {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
 
-    return fromPromise(modalRef.result).pipe(filter((confirmed) => !!confirmed));
+    return fromPromise(modalRef.result).pipe(filter(confirmed => !!confirmed));
   }
 }

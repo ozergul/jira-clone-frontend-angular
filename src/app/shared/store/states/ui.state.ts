@@ -30,6 +30,6 @@ export class UIState {
 
   @Action(GetCreateTaskConfig)
   tasksGet({ patchState }: StateContext<UIStateModel.State>) {
-    return this.uiService.getCreateTaskConfig().pipe(tap((createTaskConfig) => patchState({ createTaskConfig })));
+    return this.uiService.getCreateTaskConfig().pipe(tap(createTaskConfig => patchState({ createTaskConfig })));
   }
 }

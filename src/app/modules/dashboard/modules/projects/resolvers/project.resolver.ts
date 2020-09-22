@@ -14,7 +14,7 @@ export class ProjectResolver implements Resolve<null> {
     const { code } = params;
     return this.store.dispatch(new ProjectGet(code)).pipe(
       switchMap(() => this.store.selectOnce(ProjectState.getProject)),
-      switchMap((project) => {
+      switchMap(project => {
         if (project) {
           return of(null);
         } else {

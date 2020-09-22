@@ -1,1 +1,1 @@
-export * from './homepage/homepage.componet'
+export * from './homepage/homepage.componet';

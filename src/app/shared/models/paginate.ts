@@ -78,5 +78,6 @@ export declare class Pagination<PaginationObject> {
     /**
      * associated links
      */
-    links: IPaginationLinks);
+    links: IPaginationLinks,
+  );
 }

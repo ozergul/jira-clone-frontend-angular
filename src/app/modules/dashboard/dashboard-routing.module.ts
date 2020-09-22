@@ -11,15 +11,15 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
       },
       {
         path: 'projects',
-        loadChildren: () => import('./modules/projects/projects.module').then((m) => m.ProjectsModule),
+        loadChildren: () => import('./modules/projects/projects.module').then(m => m.ProjectsModule),
       },
       {
         path: 'tasks',
-        loadChildren: () => import('./modules/tasks/tasks.module').then((m) => m.TasksModule),
+        loadChildren: () => import('./modules/tasks/tasks.module').then(m => m.TasksModule),
       },
     ],
   },

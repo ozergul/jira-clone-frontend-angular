@@ -24,7 +24,7 @@ export class LanguageHandler {
   private initTranslate() {
     const browserLang = navigator.language || navigator['userLanguage'];
 
-    this.currentUser$.pipe(filter((user) => user && !!Object.keys(user).length)).subscribe((currentUser) => {
+    this.currentUser$.pipe(filter(user => user && !!Object.keys(user).length)).subscribe(currentUser => {
       const userLang = currentUser.language;
 
       this.translateService.setDefaultLang(userLang || browserLang || 'tr-TR');

@@ -72,7 +72,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
 
-    this.projects$.pipe(untilDestroyed(this)).subscribe((projects) => {
+    this.projects$.pipe(untilDestroyed(this)).subscribe(projects => {
       this.meta = projects.meta;
       this.dataSource = new MatTableDataSource(projects.items);
     });
@@ -82,7 +82,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.paginator.page
       .pipe(
         untilDestroyed(this),
-        tap((pageInfo) =>
+        tap(pageInfo =>
           this.store.dispatch(new ProjectsGet({ limit: pageInfo.pageSize, page: pageInfo.pageIndex + 1 })),
         ),
       )

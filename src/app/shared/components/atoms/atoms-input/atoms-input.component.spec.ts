@@ -4,14 +4,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 
 describe('AtomsInputComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed
-      .configureTestingModule({
-        declarations: [AtomsInputComponent, ],
-        imports: [TranslateModule.forRoot(), FormsModule]
-      })
-      .compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AtomsInputComponent],
+        imports: [TranslateModule.forRoot(), FormsModule],
+      }).compileComponents();
+    }),
+  );
 
   it('should be able to shown required star', fakeAsync(() => {
     const fixture = TestBed.createComponent(AtomsInputComponent);
@@ -22,6 +22,6 @@ describe('AtomsInputComponent', () => {
     component.required = true;
     fixture.detectChanges();
 
-    expect(hostElement.querySelector('.icon-required').textContent).toEqual('*')
+    expect(hostElement.querySelector('.icon-required').textContent).toEqual('*');
   }));
 });

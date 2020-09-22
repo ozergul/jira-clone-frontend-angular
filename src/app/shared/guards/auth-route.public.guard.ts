@@ -17,7 +17,7 @@ export class AuthRoutePublicGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.isAuthenticated$.pipe(
-      switchMap((isAuthenticated) => {
+      switchMap(isAuthenticated => {
         if (isAuthenticated) {
           return this.redirectToHomePage$();
         } else {

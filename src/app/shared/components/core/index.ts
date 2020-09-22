@@ -1,1 +1,1 @@
-export * from './dummy/dummy.component'
+export * from './dummy/dummy.component';

@@ -38,7 +38,7 @@ export class LayoutDefaultComponent {
   constructor(private store: Store, private actions$: Actions) {
     this.actions$
       .pipe(ofActionSuccessful(ProjectCreate, ProjectUpdate, ProjectDelete), untilDestroyed(this))
-      .subscribe((_) => this.store.dispatch(new ProjectsGetForHeader()));
+      .subscribe(_ => this.store.dispatch(new ProjectsGetForHeader()));
   }
 
   logout(): void {

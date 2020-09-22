@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { FormGroup, Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
+  AuthState,
   extractError,
   ModalService,
   Project,
@@ -51,16 +52,17 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
 
     this.form = this.fb.group({
       id: [null],
+      userId: [null, Validators.required],
       code: [null, Validators.required],
       title: [null, Validators.required],
       description: [null],
     });
 
     if (this.isEdit) {
-      this.project$.pipe(untilDestroyed(this)).subscribe((project) => {
+      this.project$.pipe(untilDestroyed(this)).subscribe(project => {
         this.project = project;
 
-        const { id, code, title, description } = project;
+        const { id, code, title, description, userId } = project;
 
         this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
         this.breadcrumbItems = [
@@ -71,49 +73,49 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
           },
         ];
 
-        this.form.patchValue({ id, code, title, description });
+        this.form.patchValue({ id, code, title, description, userId });
       });
+    } else {
+      this.form.get('userId').patchValue(this.store.selectSnapshot(AuthState.getCurrentUser).id);
     }
   }
 
   createProject(): void {
     const { id, ...formValue } = this.form.value;
     this.store.dispatch(new ProjectCreate(formValue as Project)).subscribe({
-      next: (_) =>
+      next: _ =>
         this.store.dispatch([
           new ToasterSuccess('New project successfully created.'),
           new Navigate(['/dashboard/projects']),
         ]),
-      error: (err) => this.store.dispatch(new ToasterError(extractError(err))),
+      error: err => this.store.dispatch(new ToasterError(extractError(err))),
     });
   }
 
   updateProject(): void {
     this.store.dispatch(new ProjectUpdate(this.form.value as Project)).subscribe({
-      next: (_) => this.store.dispatch([new ToasterSuccess('Project saved.'), new Navigate(['/dashboard/projects'])]),
-      error: (err) => this.store.dispatch(new ToasterError(extractError(err))),
+      next: _ => this.store.dispatch([new ToasterSuccess('Project saved.'), new Navigate(['/dashboard/projects'])]),
+      error: err => this.store.dispatch(new ToasterError(extractError(err))),
     });
   }
 
   completeProject(): void {
-    this.modalService
-      .confirm('Are you sure to complete?', 'This action is cannot be undone.')
-      .subscribe((confirmed) => {
-        if (confirmed) {
-          this.store.dispatch(new ProjectComplete(this.project.id)).subscribe({
-            next: (_) => this.store.dispatch(new ToasterSuccess('Project completed.')),
-            error: (err) => this.store.dispatch(new ToasterError(extractError(err))),
-          });
-        }
-      });
+    this.modalService.confirm('Are you sure to complete?', 'This action is cannot be undone.').subscribe(confirmed => {
+      if (confirmed) {
+        this.store.dispatch(new ProjectComplete(this.project.id)).subscribe({
+          next: _ => this.store.dispatch(new ToasterSuccess('Project completed.')),
+          error: err => this.store.dispatch(new ToasterError(extractError(err))),
+        });
+      }
+    });
   }
   deleteProject(): void {
-    this.modalService.confirm('Are you sure to delete?', 'This action is cannot be undone.').subscribe((confirmed) => {
+    this.modalService.confirm('Are you sure to delete?', 'This action is cannot be undone.').subscribe(confirmed => {
       if (confirmed) {
         this.store.dispatch(new ProjectDelete(this.project.id)).subscribe({
-          next: (_) =>
+          next: _ =>
             this.store.dispatch([new ToasterSuccess('Project deleted.'), new Navigate(['/dashboard/projects'])]),
-          error: (err) => this.store.dispatch(new ToasterError(extractError(err))),
+          error: err => this.store.dispatch(new ToasterError(extractError(err))),
         });
       }
     });

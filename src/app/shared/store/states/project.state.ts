@@ -44,21 +44,19 @@ export class ProjectState {
 
   @Action(ProjectsGet)
   projectsGet({ patchState }: StateContext<ProjectStateModel.State>, { payload }: ProjectsGet) {
-    return this.projectService
-      .getProjects(payload.page, payload.limit)
-      .pipe(tap((projects) => patchState({ projects })));
+    return this.projectService.getProjects(payload.page, payload.limit).pipe(tap(projects => patchState({ projects })));
   }
 
   @Action(ProjectsGetForHeader)
   projectsGetForHeader({ patchState }: StateContext<ProjectStateModel.State>) {
     return this.projectService
       .getProjects(1, 3)
-      .pipe(tap((projects) => patchState({ projectsForHeader: projects.items })));
+      .pipe(tap(projects => patchState({ projectsForHeader: projects.items })));
   }
 
   @Action(ProjectGet)
   projectGet({ patchState }: StateContext<ProjectStateModel.State>, { payload }: ProjectGet) {
-    return this.projectService.getProjectByCode(payload).pipe(tap((project) => patchState({ project })));
+    return this.projectService.getProjectByCode(payload).pipe(tap(project => patchState({ project })));
   }
 
   @Action(ProjectCreate)
@@ -73,7 +71,7 @@ export class ProjectState {
 
   @Action(ProjectComplete)
   projectComplete({ patchState }: StateContext<ProjectStateModel.State>, { payload }: ProjectComplete) {
-    return this.projectService.completeProject({ id: payload }).pipe(tap((project) => patchState({ project })));
+    return this.projectService.completeProject({ id: payload }).pipe(tap(project => patchState({ project })));
   }
 
   @Action(ProjectDelete)

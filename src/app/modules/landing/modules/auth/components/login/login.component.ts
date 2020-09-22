@@ -36,7 +36,7 @@ export class LoginComponent {
         }),
       )
       .subscribe(
-        (_) => {
+        _ => {
           const { returnUrl } = this.route.snapshot.params;
           this.store.dispatch(new Navigate([returnUrl || '/dashboard']));
         },

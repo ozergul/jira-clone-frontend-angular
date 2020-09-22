@@ -5,7 +5,7 @@ export class ToasterSuccess {
 
 export class ToasterError {
   static readonly type = '[ToasterError] Toaster Error';
-  constructor(public message = 'Error occured.') {}
+  constructor(public message = 'Error occurred.') {}
 }
 
 export class ToasterInfo {

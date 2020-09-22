@@ -25,6 +25,6 @@ export class HomepageComponent {
   isAuthenticated$: Observable<boolean>;
 
   constructor(private store: Store) {
-    this.isAuthenticated$.pipe(filter(Boolean)).subscribe((_) => this.store.dispatch(new Navigate(['/dashboard'])));
+    this.isAuthenticated$.pipe(filter(Boolean)).subscribe(_ => this.store.dispatch(new Navigate(['/dashboard'])));
   }
 }

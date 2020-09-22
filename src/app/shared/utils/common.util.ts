@@ -9,7 +9,7 @@ export function extractError(err: HttpErrorResponse) {
   }
 }
 
-export const isArray = (x) => Array.isArray(x);
+export const isArray = x => Array.isArray(x);
 
 export function validateAllFormFields(
   form: FormGroup[] | FormGroup,
@@ -18,8 +18,8 @@ export function validateAllFormFields(
 ) {
   const forms = (isArray(form) ? form : [form]) as FormGroup[];
 
-  forms.forEach((form) => {
-    Object.keys(form.controls).forEach((field) => {
+  forms.forEach(form => {
+    Object.keys(form.controls).forEach(field => {
       const control = form.get(field);
 
       if (control instanceof FormArray) {

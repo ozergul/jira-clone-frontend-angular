@@ -9,12 +9,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./modules/landing/landing.module').then((m) => m.LandingModule),
+        loadChildren: () => import('./modules/landing/landing.module').then(m => m.LandingModule),
       },
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
       },
     ],
   },

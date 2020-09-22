@@ -44,11 +44,11 @@ export class AuthState {
   @Action(AuthLogin)
   authLogin(_: StateContext<AuthStateModel.State>, { payload }: AuthLogin) {
     return this.authService.login(payload).pipe(
-      catchError((err) => {
+      catchError(err => {
         this.jwtService.destroyToken();
         return throwError(err);
       }),
-      tap((response) => {
+      tap(response => {
         if (response.access_token) {
           this.jwtService.saveToken(response.access_token);
         }
@@ -58,12 +58,12 @@ export class AuthState {
 
   @Action(AuthRegister)
   authRegister({ patchState }: StateContext<AuthStateModel.State>, { payload }: AuthRegister) {
-    return this.authService.register(payload).pipe(tap((registeredUser) => patchState({ registeredUser })));
+    return this.authService.register(payload).pipe(tap(registeredUser => patchState({ registeredUser })));
   }
 
   @Action(AuthInquireMe)
   authInquireMe({ patchState }: StateContext<AuthStateModel.State>) {
-    return this.authService.inquireMe().pipe(tap((currentUser) => patchState({ currentUser })));
+    return this.authService.inquireMe().pipe(tap(currentUser => patchState({ currentUser })));
   }
 
   @Action(AuthLogout)

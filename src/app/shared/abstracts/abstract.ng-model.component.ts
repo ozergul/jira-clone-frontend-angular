@@ -14,10 +14,10 @@ export class AbstractNgModelComponent<T = any, U = T> implements ControlValueAcc
   readonly: boolean;
 
   @Input()
-  valueFn: (value: U, previousValue?: T) => T = (value) => (value as any) as T;
+  valueFn: (value: U, previousValue?: T) => T = value => (value as any) as T;
 
   @Input()
-  valueLimitFn: (value: T, previousValue?: T) => any = (value) => false;
+  valueLimitFn: (value: T, previousValue?: T) => any = value => false;
 
   @Input()
   set value(value: T) {

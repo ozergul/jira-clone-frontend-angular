@@ -48,7 +48,7 @@ export class ErrorMessagesDirective implements AfterViewInit, OnDestroy, OnChang
     timer(0).subscribe(() => {
       const originalFn = ngControl.control.updateValueAndValidity;
       const self = this;
-      ngControl.control.updateValueAndValidity = function (opts?) {
+      ngControl.control.updateValueAndValidity = function(opts?) {
         originalFn.apply(this, arguments);
         self.checkRequiredError();
         self.checkExternalMessages();
