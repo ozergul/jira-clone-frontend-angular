@@ -1,5 +1,5 @@
 import { Lov } from './lov';
-import { Project } from './project';
+import { Project } from './project/project';
 
 export namespace UI {
   export interface BreadcrumbItem {

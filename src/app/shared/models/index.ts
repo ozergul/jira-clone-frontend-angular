@@ -1,6 +1,6 @@
 export * from './auth';
 export * from './user';
-export * from './project';
+export * from './project/index';
 export * from './ui';
 export * from './task';
 export * from './lov';

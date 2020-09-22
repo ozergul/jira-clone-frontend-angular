@@ -1,4 +1,4 @@
-import { IPaginationOptions, Project } from '../../models';
+import { CreateProjectDto, IPaginationOptions, UpdateProjectDto } from '../../models';
 
 export class ProjectsGet {
   static readonly type = '[ProjectsGet] Projects Get';
@@ -16,12 +16,12 @@ export class ProjectGet {
 
 export class ProjectCreate {
   static readonly type = '[ProjectCreate] Project Create';
-  constructor(public readonly payload: Project) {}
+  constructor(public readonly payload: CreateProjectDto) {}
 }
 
 export class ProjectUpdate {
   static readonly type = '[ProjectUpdate] Project Update';
-  constructor(public readonly payload: Project) {}
+  constructor(public readonly payload: UpdateProjectDto) {}
 }
 
 export class ProjectComplete {

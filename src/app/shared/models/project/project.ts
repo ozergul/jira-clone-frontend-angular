@@ -1,4 +1,4 @@
-import { DateAudit } from './date-audit';
+import { DateAudit } from '../date-audit';
 
 export type Project = Partial<{
   id: number;
@@ -6,5 +6,6 @@ export type Project = Partial<{
   title: string;
   description: string;
   isCompleted: boolean;
+  createdBy: number;
 }> &
   DateAudit;

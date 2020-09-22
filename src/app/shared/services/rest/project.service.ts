@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeleteResult, Pagination, Project } from '../../models';
+import { CreateProjectDto, DeleteResult, Pagination, Project, UpdateProjectDto } from '../../models';
 import { Body, Delete, Get, Path, Post, Put, Query, RestService } from 'ngx-rest-service';
 
 @Injectable({
@@ -18,17 +18,17 @@ export class ProjectService extends RestService {
   }
 
   @Post('/projects/create')
-  createProject(@Body project: Project): Observable<Project> {
+  createProject(@Body payload: CreateProjectDto): Observable<Project> {
     return null;
   }
 
   @Put('/projects/update')
-  updateProject(@Body project: Project): Observable<Project> {
+  updateProject(@Body project: UpdateProjectDto): Observable<Project> {
     return null;
   }
 
-  @Post('/projects/complete')
-  completeProject(@Body project: Partial<Project>): Observable<Project> {
+  @Post('/projects/complete/{id}')
+  completeProject(@Path('id') id: number): Observable<Project> {
     return null;
   }
 

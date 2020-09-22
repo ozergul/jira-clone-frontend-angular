@@ -71,7 +71,7 @@ export class ProjectState {
 
   @Action(ProjectComplete)
   projectComplete({ patchState }: StateContext<ProjectStateModel.State>, { payload }: ProjectComplete) {
-    return this.projectService.completeProject({ id: payload }).pipe(tap(project => patchState({ project })));
+    return this.projectService.completeProject(payload).pipe(tap(project => patchState({ project })));
   }
 
   @Action(ProjectDelete)

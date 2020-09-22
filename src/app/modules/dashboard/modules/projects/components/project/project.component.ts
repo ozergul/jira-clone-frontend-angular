@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { FormGroup, Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
+  CreateProjectDto,
   extractError,
   ModalService,
   Project,
@@ -13,6 +14,7 @@ import {
   ToasterError,
   ToasterSuccess,
   UI,
+  UpdateProjectDto,
 } from '@fe/shared';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select } from '@ngxs/store';
@@ -78,7 +80,7 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
 
   createProject(): void {
     const { id, ...formValue } = this.form.value;
-    this.store.dispatch(new ProjectCreate(formValue as Project)).subscribe({
+    this.store.dispatch(new ProjectCreate(formValue as CreateProjectDto)).subscribe({
       next: _ =>
         this.store.dispatch([
           new ToasterSuccess('New project successfully created.'),
@@ -89,7 +91,7 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
   }
 
   updateProject(): void {
-    this.store.dispatch(new ProjectUpdate(this.form.value as Project)).subscribe({
+    this.store.dispatch(new ProjectUpdate(this.form.value as UpdateProjectDto)).subscribe({
       next: _ => this.store.dispatch([new ToasterSuccess('Project saved.'), new Navigate(['/dashboard/projects'])]),
       error: err => this.store.dispatch(new ToasterError(extractError(err))),
     });
