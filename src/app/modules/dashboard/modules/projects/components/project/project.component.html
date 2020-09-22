@@ -1,0 +1,58 @@
+<molecules-breadcrumb [breadcrumbItems]="breadcrumbItems"> </molecules-breadcrumb>
+
+<templates-crud-wrapper>
+  <form [formGroup]="form">
+    <ng-container *ngIf="isEdit">
+      <div class="btn-group mb-2">
+        <button *ngIf="!project.isCompleted" type="button" class="btn btn-light" (click)="completeProject()">
+          {{ 'Complete Project' | translate }}
+        </button>
+
+        <button *ngIf="project.isCompleted" type="button" class="btn btn-light" [disabled]="true">
+          {{ 'Completed' | translate }}
+        </button>
+        <button type="button" class="btn btn-light" (click)="deleteProject()">{{ 'Delete' | translate }}</button>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <atoms-input inputLabel="ID" formControlName="id" [disabled]="true"> </atoms-input>
+        </div>
+      </div>
+    </ng-container>
+    <div class="row">
+      <div class="col-md-6">
+        <atoms-input
+          inputLabel="Project Code"
+          inputPlaceholder="Project shortcode"
+          formControlName="code"
+          [disabled]="isEdit"
+          [required]="true"
+          errorMessages
+        >
+        </atoms-input>
+      </div>
+      <div class="col-md-6">
+        <atoms-input
+          inputLabel="Title"
+          formControlName="title"
+          inputPlaceholder="Project title"
+          [required]="true"
+          errorMessages
+        >
+        </atoms-input>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <atoms-input inputLabel="Description" formControlName="description"> </atoms-input>
+    </div>
+
+    <button *ngIf="isEdit" type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="updateProject()">
+      {{ 'Save' | translate }}
+    </button>
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="createProject()">
+      {{ 'Create' | translate }}
+    </button>
+  </form>
+</templates-crud-wrapper>

@@ -1,0 +1,78 @@
+<molecules-breadcrumb [breadcrumbItems]="breadcrumbItems"> </molecules-breadcrumb>
+
+<templates-crud-wrapper>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-md-5">
+        <molecules-select
+          [required]="true"
+          [items]="projects"
+          bindLabel="title"
+          label="Project"
+          formControlName="project"
+          errorMessages
+        >
+        </molecules-select>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div class="col-md-5">
+        <molecules-select
+          [required]="true"
+          [items]="types"
+          [optionTemplate]="typeOptionTemplate"
+          bindLabel="text"
+          label="Type"
+          formControlName="type"
+          errorMessages
+        >
+          <ng-template #typeOptionTemplate let-item="item"> {{ item.text }} </ng-template>
+        </molecules-select>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div class="col-md-5">
+        <molecules-select
+          [required]="true"
+          [items]="priorityItems"
+          [optionTemplate]="priorityOptionTemplate"
+          [labelTemplate]="priorityOptionTemplate"
+          bindLabel="text"
+          label="Priority"
+          formControlName="priority"
+          errorMessages
+        >
+          <ng-template #priorityOptionTemplate let-item="item">
+            <fa-icon
+              *ngIf="iconMap[item.text]?.icon"
+              [styles]="{ color: iconMap[item.text]?.color }"
+              [icon]="iconMap[item.text]?.icon"
+            ></fa-icon>
+            {{ item.text }}
+          </ng-template>
+        </molecules-select>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div class="col-md-5">
+        <atoms-input [required]="true" inputLabel="Task title" formControlName="title" errorMessages> </atoms-input>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label">{{ 'Task Description' | translate }}</label>
+      <quill-editor placeholder="" class="content-editor" formControlName="description" [modules]="editorConfig">
+      </quill-editor>
+    </div>
+
+    <button *ngIf="isEdit" type="submit" class="btn btn-primary">
+      {{ 'Save' | translate }}
+    </button>
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" (click)="crateTask()">
+      {{ 'Create' | translate }}
+    </button>
+  </form>
+</templates-crud-wrapper>

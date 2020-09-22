@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-12">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form" (keydown.enter)="submitForm()">
+          <atoms-input
+            formControlName="firstName"
+            inputLabel="First name"
+            inputPlaceholder="First name"
+            fieldClass="has-margin-bottom-10"
+          ></atoms-input>
+
+          <atoms-input
+            formControlName="lastName"
+            inputLabel="Last name"
+            inputPlaceholder="Last name"
+            fieldClass="has-margin-bottom-10"
+          ></atoms-input>
+
+          <atoms-input
+            formControlName="email"
+            inputLabel="Email"
+            inputPlaceholder="Email"
+            fieldClass="has-margin-bottom-10"
+            [iconName]="faEnvelope"
+          ></atoms-input>
+
+          <atoms-input
+            formControlName="password"
+            inputLabel="Password"
+            inputPlaceholder="********"
+            inputType="password"
+            fieldClass="has-margin-bottom-10"
+            [iconName]="faLock"
+          ></atoms-input>
+
+          <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
