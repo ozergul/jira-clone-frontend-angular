@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { FormGroup, Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
-  AuthState,
   extractError,
   ModalService,
   Project,
@@ -74,8 +73,6 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
 
         this.form.patchValue({ id, code, title, description });
       });
-    } else {
-      this.form.get('userId').patchValue(this.store.selectSnapshot(AuthState.getCurrentUser).id);
     }
   }
 
