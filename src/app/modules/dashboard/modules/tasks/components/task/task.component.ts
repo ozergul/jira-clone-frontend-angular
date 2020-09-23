@@ -57,7 +57,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       icon: faCircle,
       color: '#57A55A',
     },
-    High: {
+    Medium: {
       icon: faAngleDoubleUp,
       color: '#E97F33',
     },
