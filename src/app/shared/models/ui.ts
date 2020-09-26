@@ -1,5 +1,6 @@
-import { Lov } from './lov';
+import { Lov } from './lov/lov';
 import { Project } from './project/project';
+import { Task } from './task';
 
 export namespace UI {
   export interface BreadcrumbItem {
@@ -11,5 +12,10 @@ export namespace UI {
     priorities: Lov[];
     types: Lov[];
     projects: Project[];
+  }
+
+  export interface LoginHeader {
+    projects: Project[];
+    tasks: Task[];
   }
 }

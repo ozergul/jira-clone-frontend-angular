@@ -11,4 +11,8 @@ export class UIService extends RestService {
   getCreateTaskConfig(): Observable<UI.CreateTaskConfig> {
     return null;
   }
+  @Get('/ui/login-header')
+  getLoginHeader(): Observable<UI.LoginHeader> {
+    return null;
+  }
 }

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Auth, User } from '../../models';
+import { LoginUserDto, User } from '../../models';
 import { Body, Get, Post, RestService } from 'ngx-rest-service';
+import { RegisterUserDto } from '../../models/user/register-user.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends RestService {
   @Post('/auth/login')
-  login(@Body userLoginRequest: Auth.UserLoginRequest): Observable<Auth.LoginResponse> {
+  login(@Body userLoginRequest: LoginUserDto): Observable<any> {
     return null;
   }
 
   @Post('/auth/register')
-  register(@Body userRegisterRequest: Auth.UserRegisterRequest): Observable<User> {
+  register(@Body userRegisterRequest: RegisterUserDto): Observable<User> {
     return null;
   }
 

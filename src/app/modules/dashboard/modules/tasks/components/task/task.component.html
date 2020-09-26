@@ -27,7 +27,11 @@
           formControlName="type"
           errorMessages
         >
-          <ng-template #typeOptionTemplate let-item="item"> {{ item.text }} </ng-template>
+          <ng-template #typeOptionTemplate let-item="item">
+            <atoms-task-icon [lovType]="LovType.TASK_TYPE" [lov]="item"></atoms-task-icon>
+
+            {{ item.text | translate }}
+          </ng-template>
         </molecules-select>
       </div>
 
@@ -45,12 +49,9 @@
           errorMessages
         >
           <ng-template #priorityOptionTemplate let-item="item">
-            <fa-icon
-              *ngIf="iconMap[item.text]?.icon"
-              [styles]="{ color: iconMap[item.text]?.color }"
-              [icon]="iconMap[item.text]?.icon"
-            ></fa-icon>
-            {{ item.text }}
+            <atoms-task-icon [lovType]="LovType.TASK_PRIORITY" [lov]="item"></atoms-task-icon>
+
+            {{ item.text | translate }}
           </ng-template>
         </molecules-select>
       </div>

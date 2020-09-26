@@ -1,4 +1,4 @@
-import { DateAudit } from './date-audit';
+import { DateAudit } from '../date-audit';
 
 export interface User extends DateAudit {
   id: number;

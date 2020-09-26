@@ -1,4 +1,4 @@
-import { DateAudit } from './date-audit';
+import { DateAudit } from '../date-audit';
 
 export interface Task extends DateAudit {
   id: number;

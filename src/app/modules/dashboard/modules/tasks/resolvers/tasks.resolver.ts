@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { TasksGet } from '@fe/shared';
+import { State, TasksGet } from '@fe/shared';
 import { Store } from '@ngxs/store';
 import { mapTo } from 'rxjs/operators';
 
@@ -11,10 +11,13 @@ export class TasksResolver implements Resolve<null> {
   resolve() {
     return this.store
       .dispatch(
-        new TasksGet({
-          page: 1,
-          limit: 5,
-        }),
+        new TasksGet(
+          {
+            page: 1,
+            limit: 5,
+          },
+          State.ASSIGNED,
+        ),
       )
       .pipe(mapTo(null));
   }

@@ -1,13 +1,13 @@
-import { Auth } from '../../models';
+import { RegisterUserDto, LoginUserDto } from '../../models';
 
 export class AuthLogin {
   static readonly type = '[AuthLogin] Auth Login';
-  constructor(public readonly payload: Auth.UserLoginRequest) {}
+  constructor(public readonly payload: LoginUserDto) {}
 }
 
 export class AuthRegister {
-  static readonly type = '[AuthRegister] Auth Login';
-  constructor(public readonly payload: Auth.UserRegisterRequest) {}
+  static readonly type = '[AuthRegister] Auth Register';
+  constructor(public readonly payload: RegisterUserDto) {}
 }
 
 export class AuthInquireMe {

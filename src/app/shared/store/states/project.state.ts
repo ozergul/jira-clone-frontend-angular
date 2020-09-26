@@ -3,18 +3,16 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { Pagination, Project } from '../../models';
 import { ProjectService } from '../../services';
-import { ProjectComplete, ProjectCreate, ProjectDelete, ProjectGet, ProjectsGet, ProjectsGetForHeader, ProjectUpdate } from '../actions';
+import { ProjectComplete, ProjectCreate, ProjectDelete, ProjectGet, ProjectsGet, ProjectUpdate } from '../actions';
 
 export namespace ProjectStateModel {
   export const NAME = 'ProjectState';
   export interface State {
     projects: Pagination<Project>;
-    projectsForHeader: Project[];
     project: Project;
   }
   export const DEFAULTS = {
     projects: null as Pagination<Project>,
-    projectsForHeader: [] as Project[],
     project: null as Project,
   } as State;
 }
@@ -31,11 +29,6 @@ export class ProjectState {
   }
 
   @Selector()
-  static getProjectsForHeader({ projectsForHeader }: ProjectStateModel.State): Project[] {
-    return projectsForHeader;
-  }
-
-  @Selector()
   static getProject({ project }: ProjectStateModel.State): Project {
     return project;
   }
@@ -45,13 +38,6 @@ export class ProjectState {
   @Action(ProjectsGet)
   projectsGet({ patchState }: StateContext<ProjectStateModel.State>, { payload }: ProjectsGet) {
     return this.projectService.getProjects(payload.page, payload.limit).pipe(tap(projects => patchState({ projects })));
-  }
-
-  @Action(ProjectsGetForHeader)
-  projectsGetForHeader({ patchState }: StateContext<ProjectStateModel.State>) {
-    return this.projectService
-      .getProjects(1, 3)
-      .pipe(tap(projects => patchState({ projectsForHeader: projects.items })));
   }
 
   @Action(ProjectGet)

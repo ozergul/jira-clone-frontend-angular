@@ -29,7 +29,9 @@ export class TaskState {
   }
 
   @Action(TasksGet)
-  tasksGet({ patchState }: StateContext<TaskStateModel.State>, { payload }: TasksGet) {
-    return this.taskService.getTasks(payload.page, payload.limit).pipe(tap(tasks => patchState({ tasks })));
+  tasksGet({ patchState }: StateContext<TaskStateModel.State>, { paginationOptions, state }: TasksGet) {
+    return this.taskService
+      .getTasks(paginationOptions.page, paginationOptions.limit, state)
+      .pipe(tap(tasks => patchState({ tasks })));
   }
 }

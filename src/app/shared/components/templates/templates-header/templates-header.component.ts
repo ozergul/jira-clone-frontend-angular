@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Project } from '../../../models';
 
 @Component({
@@ -33,22 +41,21 @@ import { Project } from '../../../models';
             <li class="nav-item dropdown" [class.show]="dropdownOpened" (click)="dropdownOpened = !dropdownOpened">
               <a
                 class="nav-link dropdown-toggle"
-                id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false"
+                [attr.aria-expanded]="dropdownOpened"
               >
-                Projects
+                {{ 'Projects' | translate }}
               </a>
               <div class="dropdown-menu" [class.show]="dropdownOpened" aria-labelledby="navbarDropdown">
                 <a
-                  *ngFor="let project of projects"
+                  *ngFor="let project of projects; trackBy: trackByProjects"
                   class="dropdown-item"
                   [routerLink]="'/dashboard/projects/' + project.code"
                   >{{ project.code }} - {{ project.title }}</a
                 >
-                <div *ngIf="projects.length" class="dropdown-divider"></div>
+                <div *ngIf="projects?.length" class="dropdown-divider"></div>
                 <a class="dropdown-item" routerLink="/dashboard/projects" routerLinkActive>{{
                   'View All' | translate
                 }}</a>
@@ -83,4 +90,6 @@ export class TemplatesHeaderComponent {
   isMenuCollapsed = true;
 
   dropdownOpened = false;
+
+  trackByProjects: TrackByFunction<Project> = (_, item) => item.code;
 }

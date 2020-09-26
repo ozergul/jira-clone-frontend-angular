@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Actions, ofActionDispatched, Select, UpdateState } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { User } from '../models/user';
+import { User } from '../models/user/user';
 import { AuthState } from '../store/states';
 
 @Injectable({

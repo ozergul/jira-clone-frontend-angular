@@ -19,7 +19,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { faAngleDoubleUp, faCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { LovType } from '../../../../../../shared/enums';
 
 @UntilDestroy()
 @Component({
@@ -52,25 +52,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
   types: Lov[];
   projects: Project[];
 
-  iconMap = {
-    Low: {
-      icon: faCircle,
-      color: '#57A55A',
-    },
-    Medium: {
-      icon: faAngleDoubleUp,
-      color: '#E97F33',
-    },
-    Urgent: {
-      icon: faMinusCircle,
-      color: '#CD1317',
-    },
-  } as {
-    [key: string]: {
-      icon: any;
-      color: string;
-    };
-  };
+  LovType = LovType;
 
   ngOnInit(): void {
     super.onInit();

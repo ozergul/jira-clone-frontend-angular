@@ -14,6 +14,7 @@ export const COMPONENTS = [
   _components.AtomsInputComponent,
   _components.AtomsCheckboxComponent,
   _components.AtomsTextareaComponent,
+  _components.AtomsTaskIconComponent,
 
   // MOLECULES
   _components.MoleculesBreadcrumbComponent,

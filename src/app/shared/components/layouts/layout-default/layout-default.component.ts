@@ -2,20 +2,25 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { Navigate } from '@ngxs/router-plugin';
 import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Project } from '../../../models';
-import { AuthLogout, ProjectCreate, ProjectDelete, ProjectsGetForHeader, ProjectUpdate } from '../../../store/actions';
-import { AuthState, ProjectState } from '../../../store/states';
+import { UI } from '../../../models';
+import {
+  AuthLogout,
+  GetLoginHeader,
+  ProjectCreate,
+  ProjectDelete,
+  ProjectUpdate,
+  TaskCreate,
+} from '../../../store/actions';
+import { AuthState, UIState } from '../../../store/states';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
   selector: 'app-layout-default',
   template: `
-    <ng-container
-      *ngIf="{ isAuthenticated: isAuthenticated$ | async, projectsForHeader: projectsForHeader$ | async } as data"
-    >
+    <ng-container *ngIf="{ isAuthenticated: isAuthenticated$ | async, loginHeader: loginHeader$ | async } as data">
       <templates-header
-        [projects]="data.projectsForHeader"
+        [projects]="data.loginHeader?.projects"
         [isAuthenticated]="data.isAuthenticated"
         (logoutClick)="logout()"
       ></templates-header>
@@ -32,13 +37,13 @@ export class LayoutDefaultComponent {
   @Select(AuthState.isAuthenticated)
   isAuthenticated$: Observable<boolean>;
 
-  @Select(ProjectState.getProjectsForHeader)
-  projectsForHeader$: Observable<Project[]>;
+  @Select(UIState.loginHeader)
+  loginHeader$: Observable<UI.LoginHeader>;
 
   constructor(private store: Store, private actions$: Actions) {
     this.actions$
-      .pipe(ofActionSuccessful(ProjectCreate, ProjectUpdate, ProjectDelete), untilDestroyed(this))
-      .subscribe(_ => this.store.dispatch(new ProjectsGetForHeader()));
+      .pipe(ofActionSuccessful(ProjectCreate, ProjectUpdate, ProjectDelete, TaskCreate), untilDestroyed(this))
+      .subscribe(_ => this.store.dispatch(new GetLoginHeader()));
   }
 
   logout(): void {

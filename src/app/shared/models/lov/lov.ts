@@ -1,5 +1,5 @@
-import { DateAudit } from './date-audit';
-import { LovType } from '../enums';
+import { DateAudit } from '../date-audit';
+import { LovType } from '../../enums';
 
 export interface Lov extends DateAudit {
   id: number;

@@ -5,10 +5,6 @@ export class ProjectsGet {
   constructor(public readonly payload: IPaginationOptions) {}
 }
 
-export class ProjectsGetForHeader {
-  static readonly type = '[ProjectsGetForHeader] Projects Get For Header';
-}
-
 export class ProjectGet {
   static readonly type = '[ProjectGet] Project Get';
   constructor(public readonly payload: string) {}
