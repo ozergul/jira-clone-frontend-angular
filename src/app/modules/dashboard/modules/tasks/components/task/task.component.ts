@@ -5,6 +5,7 @@ import {
   editorConfig,
   extractError,
   Lov,
+  LovType,
   ModalService,
   Project,
   Task,
@@ -19,7 +20,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { LovType } from '../../../../../../shared/enums';
 
 @UntilDestroy()
 @Component({

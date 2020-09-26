@@ -5,6 +5,7 @@ export * from './components';
 export * from './config';
 export * from './constants';
 export * from './directives';
+export * from './enums';
 export * from './guards';
 export * from './handlers';
 export * from './interceptors';
