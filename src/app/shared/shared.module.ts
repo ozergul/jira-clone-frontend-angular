@@ -13,6 +13,7 @@ import { MaterialModule } from './modules';
 import { ConfirmationModalComponent } from './components/modals';
 import { QuillModule } from 'ngx-quill';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MaterialModule,
     QuillModule.forRoot(),
     NgSelectModule,
+    NgxMaskModule.forRoot(),
   ],
   declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   exports: [

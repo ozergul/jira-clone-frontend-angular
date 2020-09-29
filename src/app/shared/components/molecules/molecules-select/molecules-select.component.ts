@@ -7,7 +7,13 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   template: `
     <div class="form-group">
       <label class="label">{{ label | translate }} <span *ngIf="required" class="icon-required">*</span></label>
-      <ng-select [(ngModel)]="value" [items]="items" [bindLabel]="bindLabel" [bindValue]="bindValue">
+      <ng-select
+        [(ngModel)]="value"
+        [items]="items"
+        [bindLabel]="bindLabel"
+        [bindValue]="bindValue"
+        [disabled]="disabled"
+      >
         <ng-template ng-option-tmp let-item="item" *ngIf="optionTemplate">
           <ng-container *ngTemplateOutlet="optionTemplate; context: { item: item }"></ng-container>
         </ng-template>

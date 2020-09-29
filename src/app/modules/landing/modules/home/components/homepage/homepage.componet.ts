@@ -10,11 +10,11 @@ import { filter } from 'rxjs/operators';
   template: `
     <div *ngIf="{ currentUser: currentUser$ | async } as data" class="jumbotron">
       <h1 class="display-4">
-        <ng-container *ngIf="data.currentUser">
+        <ng-container *ngIf="data.currentUser?.firstName">
           {{ 'Hello' | translate }} {{ data.currentUser.firstName }}
         </ng-container>
 
-        <ng-container *ngIf="!data.currentUser">
+        <ng-container *ngIf="!data.currentUser?.firstName">
           {{ ' Hello dev!' | translate }}
         </ng-container>
       </h1>
@@ -31,14 +31,14 @@ import { filter } from 'rxjs/operators';
         <li>Typeorm</li>
       </ul>
 
-      <ng-container *ngIf="!data.currentUser">
+      <ng-container *ngIf="!data.currentUser?.firstName">
         <hr class="my-4" />
         <a class="btn btn-primary btn-lg" routerLink="/auth/login" role="button">{{ 'Login' | translate }}</a>
 
         <a class="btn btn- btn-lg ml-2" routerLink="/auth/register" role="button">{{ 'Register' | translate }}</a>
       </ng-container>
 
-      <ng-container *ngIf="data.currentUser">
+      <ng-container *ngIf="data.currentUser?.firstName">
         <hr class="my-4" />
         <a class="btn btn-primary btn-lg" routerLink="/dashboard" role="button">{{ 'Dashboard' | translate }}</a>
       </ng-container>

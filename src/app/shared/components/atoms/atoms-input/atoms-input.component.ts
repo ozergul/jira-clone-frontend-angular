@@ -26,6 +26,7 @@ import { uuid } from '../../../utils';
           [(ngModel)]="value"
           [disabled]="disabled"
           [attr.aria-required]="required"
+          [mask]="mask"
         />
       </div>
 
@@ -71,4 +72,7 @@ export class AtomsInputComponent extends AbstractNgModelComponent {
 
   @Input()
   invalidMessage = '';
+
+  @Input()
+  mask: string;
 }

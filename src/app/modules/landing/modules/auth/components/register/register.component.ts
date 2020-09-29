@@ -21,6 +21,8 @@ export class RegisterComponent {
 
   form: FormGroup;
 
+  stringMask = 'S'.repeat(20);
+
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -40,7 +42,7 @@ export class RegisterComponent {
       .dispatch(
         new AuthRegister({
           firstName: this.getControl('firstName').value,
-          lastName: this.getControl('email').value,
+          lastName: this.getControl('lastName').value,
           email: this.getControl('email').value,
           password: this.getControl('password').value,
         }),

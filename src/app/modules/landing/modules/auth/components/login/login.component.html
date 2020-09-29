@@ -1,7 +1,15 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-body">Welcome to Jira, please login or <a routerLink="/auth/register">register</a>.</div>
+      <div class="card-body">
+        <p>
+          {{ 'If you dont have account, please register.' | translate }}
+        </p>
+
+        <p>
+          <a class="btn btn-primary" routerLink="/auth/register">{{ 'Register' | translate }}</a>
+        </p>
+      </div>
     </div>
   </div>
   <div class="col-lg-4 col-12">
@@ -25,11 +33,7 @@
               [iconName]="faLock"
             ></atoms-input>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-          <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+          <button type="submit" class="btn btn-primary" (click)="submitForm()">{{ 'Login' | translate }}</button>
         </form>
       </div>
     </div>

@@ -7,12 +7,14 @@
         <molecules-select
           [required]="true"
           [items]="projects"
+          [optionTemplate]="projectOptionTemplate"
           bindLabel="title"
           bindValue="id"
           label="Project"
           formControlName="projectId"
           errorMessages
         >
+          <ng-template #projectOptionTemplate let-item="item"> {{ item.code }} - {{ item.title }} </ng-template>
         </molecules-select>
       </div>
 

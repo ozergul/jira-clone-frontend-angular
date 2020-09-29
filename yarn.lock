@@ -5908,6 +5908,13 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ngx-mask@^10.0.4:
+  version "10.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-10.0.4.tgz#47592d52eefaa874582015eaf1bb6615ce09ce4f"
+  integrity sha512-CooFh9lhbDdsYBOdMNhg3yiWxiW9FbXysXeU/uJSgbVUwKv8VrUuvif5umzc4DrHco2l/rMfheOv0rxSe1IxFQ==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-quill@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-12.0.1.tgz#a35cc65519d3626f593f4f94888fdb1f697cd940"

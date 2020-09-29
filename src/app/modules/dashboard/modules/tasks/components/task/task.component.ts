@@ -56,16 +56,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
   ngOnInit(): void {
     super.onInit();
     this.fillElements();
-
-    this.form = this.fb.group({
-      id: null,
-      projectId: [null, Validators.required],
-      priorityId: [null, Validators.required],
-      typeId: [null, Validators.required],
-      title: ['', Validators.required],
-      description: [''],
-      assigneeId: null,
-    });
+    this.buildForm();
   }
 
   crateTask(): void {
@@ -81,6 +72,22 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
         this.store.dispatch([new ToasterSuccess('New task successfully created.'), new Navigate(['/dashboard/tasks'])]),
       error: err => this.store.dispatch(new ToasterError(extractError(err))),
     });
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      id: null,
+      projectId: [null, Validators.required],
+      priorityId: [null, Validators.required],
+      typeId: [null, Validators.required],
+      title: ['', Validators.required],
+      description: [''],
+      assigneeId: null,
+    });
+
+    if (!this.projects.length) {
+      this.form.disable({ emitEvent: true });
+    }
   }
 
   private fillElements(): void {
