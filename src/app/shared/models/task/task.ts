@@ -1,4 +1,5 @@
 import { DateAudit } from '../date-audit';
+import { Lov } from '../lov/lov';
 
 export interface Task extends DateAudit {
   id: number;
@@ -7,4 +8,7 @@ export interface Task extends DateAudit {
   description: string;
   reporterId: number;
   assigneeId: number;
+  type: Lov;
+  priority: Lov;
+  projectId: Lov;
 }

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TrackByFunction, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Project, Task } from '../../../models';
 
 @Component({
@@ -88,6 +96,14 @@ import { Project, Task } from '../../../models';
                   >{{ task.taskId }}</a
                 >
                 <div *ngIf="tasks?.length" class="dropdown-divider"></div>
+
+                <a
+                  class="dropdown-item"
+                  routerLink="/dashboard/tasks/new"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  routerLinkActive="active"
+                  >{{ 'Create Task' | translate }}</a
+                >
                 <a
                   class="dropdown-item"
                   routerLink="/dashboard/tasks"

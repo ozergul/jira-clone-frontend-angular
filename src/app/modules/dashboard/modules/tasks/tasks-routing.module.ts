@@ -15,9 +15,12 @@ const routes: Routes = [
     component: _components.TaskComponent,
   },
   {
-    path: ':code',
+    path: ':taskId',
     resolve: [_resolvers.TaskResolver],
     component: _components.TaskComponent,
+    data: {
+      isEdit: true,
+    },
   },
 ];
 

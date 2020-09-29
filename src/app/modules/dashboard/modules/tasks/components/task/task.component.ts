@@ -2,17 +2,22 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { FormGroup, Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
+  CreateTaskDto,
   editorConfig,
   extractError,
   Lov,
   LovType,
   ModalService,
   Project,
+  Task,
   TaskCreate,
+  TaskState,
+  TaskUpdate,
   ToasterError,
   ToasterSuccess,
   UI,
   UIState,
+  UpdateTaskDto,
   validateAllFormFields,
 } from '@fe/shared';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -32,6 +37,11 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
   @Select(UIState.getCreateTaskConfig)
   createTaskConfig$: Observable<UI.CreateTaskConfig>;
 
+  @Select(TaskState.getTask)
+  task$: Observable<Task>;
+
+  task: Task;
+
   breadcrumbItems: UI.BreadcrumbItem[] = [
     {
       title: 'Tasks',
@@ -42,8 +52,6 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       routerLink: '/dashboard/tasks/new',
     },
   ];
-
-  form: FormGroup;
 
   editorConfig = editorConfig;
 
@@ -57,19 +65,33 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
     super.onInit();
     this.fillElements();
     this.buildForm();
+    this.editProcess();
   }
 
   crateTask(): void {
-    if (this.form.invalid) {
-      validateAllFormFields(this.form);
+    if (this.validateForm()) {
       return;
     }
 
-    const { id, ...formValue } = this.form.value;
+    const formValue = this.form.value as CreateTaskDto;
 
     this.store.dispatch(new TaskCreate(formValue)).subscribe({
       next: _ =>
         this.store.dispatch([new ToasterSuccess('New task successfully created.'), new Navigate(['/dashboard/tasks'])]),
+      error: err => this.store.dispatch(new ToasterError(extractError(err))),
+    });
+  }
+
+  updateTask(): void {
+    if (this.validateForm()) {
+      return;
+    }
+
+    const formValue = this.form.value as UpdateTaskDto;
+
+    this.store.dispatch(new TaskUpdate(formValue)).subscribe({
+      next: _ =>
+        this.store.dispatch([new ToasterSuccess('Task successfully updated.'), new Navigate(['/dashboard/tasks'])]),
       error: err => this.store.dispatch(new ToasterError(extractError(err))),
     });
   }
@@ -83,6 +105,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       title: ['', Validators.required],
       description: [''],
       assigneeId: null,
+      taskId: null,
     });
 
     if (!this.projects.length) {
@@ -96,5 +119,40 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       this.types = createTaskConfig.types;
       this.projects = createTaskConfig.projects;
     });
+  }
+
+  private editProcess(): void {
+    if (this.isEdit) {
+      this.task$.pipe(untilDestroyed(this)).subscribe(task => {
+        this.task = task;
+
+        const id = task.id;
+        const taskId = task.taskId;
+        const typeId = task.type.id;
+        const priorityId = task.priority.id;
+        const projectId = task.projectId;
+        const title = task.title;
+        const description = task.description;
+
+        this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
+        this.breadcrumbItems = [
+          ...this.breadcrumbItems,
+          {
+            title: taskId,
+            routerLink: '',
+          },
+        ];
+
+        this.form.patchValue({
+          id,
+          taskId,
+          typeId,
+          priorityId,
+          projectId,
+          title,
+          description,
+        });
+      });
+    }
   }
 }

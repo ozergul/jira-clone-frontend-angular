@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthRegister, AuthState, extractError, ToasterError, ToasterSuccess, User } from '@fe/shared';
+import { AuthRegister, AuthState, extractError, stringMask, ToasterError, ToasterSuccess, User } from '@fe/shared';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngxs/store';
 import { ActivatedRoute } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 import { catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { TextMaskConfig } from 'angular2-text-mask';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
   form: FormGroup;
 
-  stringMask = 'S'.repeat(20);
+  stringMask: TextMaskConfig = stringMask(20);
 
   constructor(
     private fb: FormBuilder,

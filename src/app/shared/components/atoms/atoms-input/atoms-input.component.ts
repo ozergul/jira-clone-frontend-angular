@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, ViewEncapsulatio
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractNgModelComponent } from '../../../abstracts';
 import { uuid } from '../../../utils';
+import { TextMaskConfig } from 'angular2-text-mask/src/angular2TextMask';
 
 @Component({
   selector: 'atoms-input',
@@ -26,7 +27,7 @@ import { uuid } from '../../../utils';
           [(ngModel)]="value"
           [disabled]="disabled"
           [attr.aria-required]="required"
-          [mask]="mask"
+          [textMask]="_textMask"
         />
       </div>
 
@@ -73,6 +74,11 @@ export class AtomsInputComponent extends AbstractNgModelComponent {
   @Input()
   invalidMessage = '';
 
+  _textMask: TextMaskConfig = {
+    mask: false,
+  };
   @Input()
-  mask: string;
+  set textMask(val: TextMaskConfig) {
+    this._textMask = val;
+  }
 }

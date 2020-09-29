@@ -1,6 +1,10 @@
 <molecules-breadcrumb [breadcrumbItems]="breadcrumbItems"> </molecules-breadcrumb>
 
 <templates-crud-wrapper>
+  <div *ngIf="!projects.length" class="alert alert-warning" role="alert">
+    {{ 'Please add at least one project before.' | translate }}
+  </div>
+
   <form [formGroup]="form">
     <div class="row">
       <div class="col-md-5">
@@ -8,6 +12,7 @@
           [required]="true"
           [items]="projects"
           [optionTemplate]="projectOptionTemplate"
+          [labelTemplate]="projectOptionTemplate"
           bindLabel="title"
           bindValue="id"
           label="Project"
@@ -25,6 +30,7 @@
           [required]="true"
           [items]="types"
           [optionTemplate]="typeOptionTemplate"
+          [labelTemplate]="typeOptionTemplate"
           bindLabel="text"
           bindValue="id"
           label="Type"
@@ -74,10 +80,10 @@
       </quill-editor>
     </div>
 
-    <button *ngIf="isEdit" type="submit" class="btn btn-primary">
+    <button *ngIf="isEdit" type="submit" class="btn btn-primary" [disabled]="!projects.length" (click)="updateTask()">
       {{ 'Save' | translate }}
     </button>
-    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" (click)="crateTask()">
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" [disabled]="!projects.length" (click)="crateTask()">
       {{ 'Create' | translate }}
     </button>
   </form>

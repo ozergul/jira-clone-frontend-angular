@@ -10,6 +10,7 @@ import {
   ProjectDelete,
   ProjectUpdate,
   TaskCreate,
+  TaskUpdate,
 } from '../../../store/actions';
 import { AuthState, UIState } from '../../../store/states';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -43,7 +44,10 @@ export class LayoutDefaultComponent {
 
   constructor(private store: Store, private actions$: Actions) {
     this.actions$
-      .pipe(ofActionSuccessful(ProjectCreate, ProjectUpdate, ProjectDelete, TaskCreate), untilDestroyed(this))
+      .pipe(
+        ofActionSuccessful(ProjectCreate, ProjectUpdate, ProjectDelete, TaskCreate, TaskUpdate),
+        untilDestroyed(this),
+      )
       .subscribe(_ => this.store.dispatch(new GetLoginHeader()));
   }
 

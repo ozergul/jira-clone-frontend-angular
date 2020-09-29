@@ -51,34 +51,15 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
   ngOnInit(): void {
     super.onInit();
 
-    this.form = this.fb.group({
-      id: [null],
-      code: [null, Validators.required],
-      title: [null, Validators.required],
-      description: [null],
-    });
-
-    if (this.isEdit) {
-      this.project$.pipe(untilDestroyed(this)).subscribe(project => {
-        this.project = project;
-
-        const { id, code, title, description } = project;
-
-        this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
-        this.breadcrumbItems = [
-          ...this.breadcrumbItems,
-          {
-            title: `Edit ${code} Project`,
-            routerLink: '/dashboard/project/new',
-          },
-        ];
-
-        this.form.patchValue({ id, code, title, description });
-      });
-    }
+    this.buildForm();
+    this.editProcess();
   }
 
   createProject(): void {
+    if (this.validateForm()) {
+      return;
+    }
+
     const { id, ...formValue } = this.form.value;
     this.store.dispatch(new ProjectCreate(formValue as CreateProjectDto)).subscribe({
       next: _ =>
@@ -91,6 +72,10 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
   }
 
   updateProject(): void {
+    if (this.validateForm()) {
+      return;
+    }
+
     this.store.dispatch(new ProjectUpdate(this.form.value as UpdateProjectDto)).subscribe({
       next: _ => this.store.dispatch([new ToasterSuccess('Project saved.'), new Navigate(['/dashboard/projects'])]),
       error: err => this.store.dispatch(new ToasterError(extractError(err))),
@@ -117,5 +102,35 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
         });
       }
     });
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      id: [null],
+      code: [null, Validators.required],
+      title: [null, Validators.required],
+      description: [null],
+    });
+  }
+
+  private editProcess(): void {
+    if (this.isEdit) {
+      this.project$.pipe(untilDestroyed(this)).subscribe(project => {
+        this.project = project;
+
+        const { id, code, title, description } = project;
+
+        this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
+        this.breadcrumbItems = [
+          ...this.breadcrumbItems,
+          {
+            title: code,
+            routerLink: '',
+          },
+        ];
+
+        this.form.patchValue({ id, code, title, description });
+      });
+    }
   }
 }

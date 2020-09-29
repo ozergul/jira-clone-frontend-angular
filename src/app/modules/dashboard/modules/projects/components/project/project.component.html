@@ -48,10 +48,10 @@
       <atoms-input inputLabel="Description" formControlName="description"> </atoms-input>
     </div>
 
-    <button *ngIf="isEdit" type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="updateProject()">
+    <button *ngIf="isEdit" type="submit" class="btn btn-primary" (click)="updateProject()">
       {{ 'Save' | translate }}
     </button>
-    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="createProject()">
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" (click)="createProject()">
       {{ 'Create' | translate }}
     </button>
   </form>

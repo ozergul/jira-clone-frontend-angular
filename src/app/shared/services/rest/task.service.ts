@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Body, Get, Post, Query, RestService } from 'ngx-rest-service';
-import { Pagination, State, Task } from '../../models';
+import { Body, Get, Path, Post, Put, Query, RestService } from 'ngx-rest-service';
+import { CreateTaskDto, Pagination, State, Task, UpdateTaskDto } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,17 @@ export class TaskService extends RestService {
   }
 
   @Post('/tasks/create')
-  createTask(@Body project: Partial<Task>): Observable<Task> {
+  createTask(@Body project: Partial<CreateTaskDto>): Observable<Task> {
+    return null;
+  }
+
+  @Put('/tasks/update')
+  updateTask(@Body project: Partial<UpdateTaskDto>): Observable<Task> {
+    return null;
+  }
+
+  @Get('/tasks/{taskId}')
+  getTask(@Path('taskId') taskId: string): Observable<Task> {
     return null;
   }
 }
