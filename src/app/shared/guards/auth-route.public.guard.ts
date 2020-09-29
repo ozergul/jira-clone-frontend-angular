@@ -19,7 +19,7 @@ export class AuthRoutePublicGuard implements CanActivate {
     return this.isAuthenticated$.pipe(
       switchMap(isAuthenticated => {
         if (isAuthenticated) {
-          return this.redirectToHomePage$();
+          return this.redirectToDashboard$();
         } else {
           return of(true);
         }
@@ -27,7 +27,7 @@ export class AuthRoutePublicGuard implements CanActivate {
     );
   }
 
-  private redirectToHomePage$(): Observable<boolean> {
+  private redirectToDashboard$(): Observable<boolean> {
     return this.store.dispatch(new Navigate(['/dashboard'])).pipe(mapTo(false));
   }
 }

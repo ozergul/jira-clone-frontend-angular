@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  TrackByFunction,
-  ViewEncapsulation,
-} from '@angular/core';
-import { Project } from '../../../models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TrackByFunction, ViewEncapsulation } from '@angular/core';
+import { Project, Task } from '../../../models';
 
 @Component({
   selector: 'templates-header',
@@ -15,7 +7,7 @@ import { Project } from '../../../models';
     <nav
       class="navbar navbar-expand-lg navbar-dark mb-3"
       style="background-color: var(--primary-color) !important"
-      (clickOutside)="dropdownOpened = false"
+      (clickOutside)="closeMenus()"
     >
       <a class="navbar-brand" routerLink="/">JIRA</a>
 
@@ -26,44 +18,84 @@ import { Project } from '../../../models';
       <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <ng-container *ngIf="!isAuthenticated">
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
               <a class="nav-link" routerLink="/auth/login" (click)="isMenuCollapsed = true">{{
                 'Login' | translate
               }}</a>
             </li>
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
               <a class="nav-link" routerLink="/auth/register" (click)="isMenuCollapsed = true">{{
                 'Register' | translate
               }}</a>
             </li>
           </ng-container>
           <ng-container *ngIf="isAuthenticated">
-            <li class="nav-item dropdown" [class.show]="dropdownOpened" (click)="dropdownOpened = !dropdownOpened">
+            <li class="nav-item dropdown" [class.show]="dropdownOpened.projects" (click)="toggleDropdown('projects')">
               <a
                 class="nav-link dropdown-toggle"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                [attr.aria-expanded]="dropdownOpened"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [attr.aria-expanded]="dropdownOpened.projects"
               >
                 {{ 'Projects' | translate }}
               </a>
-              <div class="dropdown-menu" [class.show]="dropdownOpened" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu" [class.show]="dropdownOpened.projects" aria-labelledby="navbarDropdown">
                 <a
                   *ngFor="let project of projects; trackBy: trackByProjects"
                   class="dropdown-item"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
                   [routerLink]="'/dashboard/projects/' + project.code"
                   >{{ project.code }} - {{ project.title }}</a
                 >
                 <div *ngIf="projects?.length" class="dropdown-divider"></div>
-                <a class="dropdown-item" routerLink="/dashboard/projects" routerLinkActive>{{
-                  'View All' | translate
-                }}</a>
+                <a
+                  class="dropdown-item"
+                  routerLink="/dashboard/projects"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  >{{ 'View All' | translate }}</a
+                >
               </div>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/dashboard/tasks" routerLinkActive>{{ 'Tasks' | translate }}</a>
+            <li
+              class="nav-item dropdown"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [class.show]="dropdownOpened.tasks"
+              (click)="toggleDropdown('tasks')"
+            >
+              <a
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                [attr.aria-expanded]="dropdownOpened.tasks"
+              >
+                {{ 'Tasks' | translate }}
+              </a>
+              <div class="dropdown-menu" [class.show]="dropdownOpened.tasks" aria-labelledby="navbarDropdown">
+                <a
+                  *ngFor="let task of tasks; trackBy: trackByTasks"
+                  class="dropdown-item"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  [routerLink]="'/dashboard/tasks/' + task.taskId"
+                  >{{ task.taskId }}</a
+                >
+                <div *ngIf="tasks?.length" class="dropdown-divider"></div>
+                <a
+                  class="dropdown-item"
+                  routerLink="/dashboard/tasks"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  routerLinkActive="active"
+                  >{{ 'View All' | translate }}</a
+                >
+              </div>
             </li>
 
             <li class="nav-item">
@@ -84,12 +116,31 @@ export class TemplatesHeaderComponent {
   @Input()
   projects: Project[] = [];
 
+  @Input()
+  tasks: Task[] = [];
+
   @Output()
   logoutClick = new EventEmitter<MouseEvent>();
 
   isMenuCollapsed = true;
 
-  dropdownOpened = false;
+  dropdownOpened = {
+    projects: false,
+    tasks: false,
+  };
 
   trackByProjects: TrackByFunction<Project> = (_, item) => item.code;
+  trackByTasks: TrackByFunction<Task> = (_, item) => item.id;
+
+  toggleDropdown(key: string) {
+    this.closeMenus();
+    this.dropdownOpened[key] = !this.dropdownOpened[key];
+  }
+
+  closeMenus() {
+    this.dropdownOpened = {
+      projects: false,
+      tasks: false,
+    };
+  }
 }

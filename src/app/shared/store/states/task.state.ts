@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { TaskCreate, TasksGet } from '../actions';
 import { TaskService } from '../../services/rest';
 import { tap } from 'rxjs/operators';
@@ -21,6 +21,11 @@ export namespace TaskStateModel {
 })
 @Injectable()
 export class TaskState {
+  @Selector()
+  static getTasks({ tasks }: TaskStateModel.State): Pagination<Task> {
+    return tasks;
+  }
+
   constructor(private taskService: TaskService) {}
 
   @Action(TaskCreate)

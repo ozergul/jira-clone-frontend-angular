@@ -38,7 +38,7 @@ export class LoginComponent {
       .subscribe(
         _ => {
           const { returnUrl } = this.route.snapshot.params;
-          this.store.dispatch(new Navigate([returnUrl || '/dashboard']));
+          this.store.dispatch(new Navigate([returnUrl || '/']));
         },
         (err: HttpErrorResponse) => this.store.dispatch(new ToasterError(extractError(err))),
       );

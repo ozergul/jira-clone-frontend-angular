@@ -8,7 +8,6 @@ import {
   LovType,
   ModalService,
   Project,
-  Task,
   TaskCreate,
   ToasterError,
   ToasterSuccess,
@@ -60,13 +59,12 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
 
     this.form = this.fb.group({
       id: null,
-      project: [null, Validators.required],
-      priority: [null, Validators.required],
-      type: [null, Validators.required],
+      projectId: [null, Validators.required],
+      priorityId: [null, Validators.required],
+      typeId: [null, Validators.required],
       title: ['', Validators.required],
       description: [''],
-      assignee: null,
-      labels: null,
+      assigneeId: null,
     });
   }
 
@@ -76,7 +74,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       return;
     }
 
-    const { id, ...formValue } = this.form.value as Partial<Task>;
+    const { id, ...formValue } = this.form.value;
 
     this.store.dispatch(new TaskCreate(formValue)).subscribe({
       next: _ =>

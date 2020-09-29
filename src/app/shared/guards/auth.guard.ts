@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, mapTo, take } from 'rxjs/operators';
 import { JwtService } from '../services/util';
 import { AuthInquireMe } from '../store/actions';
@@ -22,11 +22,15 @@ export class AuthGuard implements CanActivate {
       );
     }
 
-    return of(false);
+    return this.redirectToHome$().pipe(mapTo(false));
   }
 
   private redirectToLogin$(): Observable<boolean> {
     const returnUrl = this.router.url;
-    return this.store.dispatch(new Navigate(['/auth/login', { returnUrl }])).pipe(mapTo(false));
+    return this.store.dispatch(new Navigate(['/auth/login', { returnUrl }]));
+  }
+
+  private redirectToHome$(): Observable<boolean> {
+    return this.store.dispatch(new Navigate(['']));
   }
 }

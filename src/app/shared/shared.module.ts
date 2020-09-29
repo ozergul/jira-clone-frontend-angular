@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { COMPONENTS, DIRECTIVES } from './import';
+import { COMPONENTS, DIRECTIVES, PIPES } from './import';
 import { JwtInterceptor } from './interceptors';
 import { ToasterModule } from './lib/toaster';
 import { MaterialModule } from './modules';
@@ -29,7 +29,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     QuillModule.forRoot(),
     NgSelectModule,
   ],
-  declarations: [...COMPONENTS, ...DIRECTIVES],
+  declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   exports: [
     CommonModule,
     HttpClientModule,
@@ -44,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     ...COMPONENTS,
     ...DIRECTIVES,
+    ...PIPES,
   ],
   entryComponents: [ConfirmationModalComponent],
   providers: [

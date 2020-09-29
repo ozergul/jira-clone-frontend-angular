@@ -16,6 +16,8 @@ const routes: Routes = [
   },
   {
     path: ':code',
+    resolve: [_resolvers.TaskResolver],
+    component: _components.TaskComponent,
   },
 ];
 

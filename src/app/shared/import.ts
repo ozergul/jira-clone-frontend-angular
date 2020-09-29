@@ -1,6 +1,7 @@
 import * as _abstracts from './abstracts';
 import * as _components from './components';
 import * as _directives from './directives';
+import * as _pipes from './pipes';
 
 export const COMPONENTS = [
   // ABSTRACTS
@@ -33,3 +34,5 @@ export const COMPONENTS = [
 ];
 
 export const DIRECTIVES = [_directives.ClickOutsideDirective, _directives.ErrorMessagesDirective];
+
+export const PIPES = [_pipes.MemoizePipe];

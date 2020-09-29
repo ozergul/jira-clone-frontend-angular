@@ -1,8 +1,8 @@
-import { IPaginationOptions, State } from '../../models';
+import { CreateTaskDto, IPaginationOptions, State } from '../../models';
 
 export class TaskCreate {
   static readonly type = '[TaskCreate] Create Task';
-  constructor(public readonly payload: any) {}
+  constructor(public readonly payload: CreateTaskDto) {}
 }
 
 export class TasksGet {

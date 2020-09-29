@@ -11,6 +11,7 @@ export * from './handlers';
 export * from './interceptors';
 export * from './lib';
 export * from './models';
+export * from './pipes';
 export * from './resolvers';
 export * from './services';
 export * from './store';

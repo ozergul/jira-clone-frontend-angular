@@ -21,6 +21,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     <ng-container *ngIf="{ isAuthenticated: isAuthenticated$ | async, loginHeader: loginHeader$ | async } as data">
       <templates-header
         [projects]="data.loginHeader?.projects"
+        [tasks]="data.loginHeader?.tasks"
         [isAuthenticated]="data.isAuthenticated"
         (logoutClick)="logout()"
       ></templates-header>

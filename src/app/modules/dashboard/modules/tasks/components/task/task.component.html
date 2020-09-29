@@ -8,8 +8,9 @@
           [required]="true"
           [items]="projects"
           bindLabel="title"
+          bindValue="id"
           label="Project"
-          formControlName="project"
+          formControlName="projectId"
           errorMessages
         >
         </molecules-select>
@@ -23,8 +24,9 @@
           [items]="types"
           [optionTemplate]="typeOptionTemplate"
           bindLabel="text"
+          bindValue="id"
           label="Type"
-          formControlName="type"
+          formControlName="typeId"
           errorMessages
         >
           <ng-template #typeOptionTemplate let-item="item">
@@ -44,8 +46,9 @@
           [optionTemplate]="priorityOptionTemplate"
           [labelTemplate]="priorityOptionTemplate"
           bindLabel="text"
+          bindValue="id"
           label="Priority"
-          formControlName="priority"
+          formControlName="priorityId"
           errorMessages
         >
           <ng-template #priorityOptionTemplate let-item="item">
