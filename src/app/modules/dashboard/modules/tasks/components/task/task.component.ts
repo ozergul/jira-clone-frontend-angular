@@ -23,6 +23,7 @@ import {
   User,
   UserInfo,
 } from '@fe/shared';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select } from '@ngxs/store';
@@ -69,6 +70,13 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
 
   LovType = LovType;
 
+  isEditFields = {
+    description: true,
+    title: true,
+  };
+
+  faPen = faPen;
+
   ngOnInit(): void {
     super.onInit();
     this.fillElements();
@@ -110,6 +118,10 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
         assigneeId: currentUser.id,
       }),
     );
+  }
+
+  editField(field: string, value = true): void {
+    this.isEditFields[field] = value;
   }
 
   private buildForm(): void {
@@ -172,6 +184,9 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
           assigneeId,
         });
       });
+
+      this.isEditFields.description = false;
+      this.isEditFields.title = false;
     }
   }
 }

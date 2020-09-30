@@ -6,6 +6,18 @@
   </div>
 
   <form [formGroup]="form">
+    <div *ngIf="isEdit">
+      <h2 *ngIf="!isEditFields.title" style="cursor: pointer" (click)="editField('title')">{{ form.value.title }}</h2>
+      <atoms-input
+        *ngIf="isEditFields.title"
+        inputLabel="Task title"
+        formControlName="title"
+        errorMessages
+        [required]="true"
+        (onEnter)="editField('title', false)"
+      >
+      </atoms-input>
+    </div>
     <div class="row">
       <div class="col-md-5">
         <molecules-select
@@ -85,15 +97,34 @@
 
       <div class="w-100"></div>
 
-      <div class="col-md-5">
-        <atoms-input [required]="true" inputLabel="Task title" formControlName="title" errorMessages> </atoms-input>
+      <div class="col-md-5" *ngIf="!isEdit">
+        <atoms-input
+          *ngIf="isEditFields.title"
+          [required]="true"
+          inputLabel="Task title"
+          formControlName="title"
+          errorMessages
+        >
+        </atoms-input>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="isEditFields.description">
       <label class="label">{{ 'Task Description' | translate }}</label>
       <quill-editor placeholder="" class="content-editor" formControlName="description" [modules]="editorConfig">
       </quill-editor>
+    </div>
+
+    <div *ngIf="!isEditFields.description">
+      <h6>
+        {{ 'Description' | translate }}
+        <span style="cursor: pointer" (click)="editField('description')">
+          <fa-icon [icon]="faPen" size="xs"></fa-icon
+        ></span>
+      </h6>
+      <div class="ml-2">
+        <p [innerHTML]="form.value.description"></p>
+      </div>
     </div>
 
     <button *ngIf="isEdit" type="submit" class="btn btn-primary" [disabled]="!projects.length" (click)="updateTask()">

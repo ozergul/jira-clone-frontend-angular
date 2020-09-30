@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractNgModelComponent } from '../../../abstracts';
 import { uuid } from '../../../utils';
@@ -28,6 +36,7 @@ import { TextMaskConfig } from 'angular2-text-mask/src/angular2TextMask';
           [disabled]="disabled"
           [attr.aria-required]="required"
           [textMask]="_textMask"
+          (keydown.enter)="onEnter.emit()"
         />
       </div>
 
@@ -81,4 +90,7 @@ export class AtomsInputComponent extends AbstractNgModelComponent {
   set textMask(val: TextMaskConfig) {
     this._textMask = val;
   }
+
+  @Output()
+  onEnter = new EventEmitter();
 }
