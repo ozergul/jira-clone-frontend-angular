@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
+  AuthState,
+  BreadcrumbItem,
+  CreateTaskConfig,
   CreateTaskDto,
   editorConfig,
   extractError,
@@ -15,15 +18,16 @@ import {
   TaskUpdate,
   ToasterError,
   ToasterSuccess,
-  UI,
   UIState,
   UpdateTaskDto,
-  validateAllFormFields,
+  User,
+  UserInfo,
 } from '@fe/shared';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -35,14 +39,17 @@ import { Observable } from 'rxjs';
 })
 export class TaskComponent extends AbstractCrudComponent implements OnInit {
   @Select(UIState.getCreateTaskConfig)
-  createTaskConfig$: Observable<UI.CreateTaskConfig>;
+  createTaskConfig$: Observable<CreateTaskConfig>;
 
   @Select(TaskState.getTask)
   task$: Observable<Task>;
 
+  @Select(AuthState.getCurrentUser)
+  currentUser$: Observable<User>;
+
   task: Task;
 
-  breadcrumbItems: UI.BreadcrumbItem[] = [
+  breadcrumbItems: BreadcrumbItem[] = [
     {
       title: 'Tasks',
       routerLink: '/dashboard/tasks',
@@ -58,6 +65,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
   priorityItems: Lov[];
   types: Lov[];
   projects: Project[];
+  users: UserInfo[];
 
   LovType = LovType;
 
@@ -96,6 +104,14 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
     });
   }
 
+  assignToMe(): void {
+    this.currentUser$.pipe(take(1)).subscribe(currentUser =>
+      this.form.patchValue({
+        assigneeId: currentUser.id,
+      }),
+    );
+  }
+
   private buildForm(): void {
     this.form = this.fb.group({
       id: null,
@@ -104,7 +120,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       typeId: [null, Validators.required],
       title: ['', Validators.required],
       description: [''],
-      assigneeId: null,
+      assigneeId: [null, Validators.required],
       taskId: null,
     });
 
@@ -118,6 +134,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
       this.priorityItems = createTaskConfig.priorities;
       this.types = createTaskConfig.types;
       this.projects = createTaskConfig.projects;
+      this.users = createTaskConfig.users;
     });
   }
 
@@ -133,6 +150,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
         const projectId = task.projectId;
         const title = task.title;
         const description = task.description;
+        const assigneeId = task.assigneeId;
 
         this.breadcrumbItems = this.breadcrumbItems.slice(0, -1);
         this.breadcrumbItems = [
@@ -151,6 +169,7 @@ export class TaskComponent extends AbstractCrudComponent implements OnInit {
           projectId,
           title,
           description,
+          assigneeId,
         });
       });
     }

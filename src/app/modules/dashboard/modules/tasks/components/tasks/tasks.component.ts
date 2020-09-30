@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { IPaginationMeta, LovType, Pagination, State, Task, TasksGet, TaskState, UI } from '@fe/shared';
+import { BreadcrumbItem, IPaginationMeta, LovType, Pagination, State, Task, TasksGet, TaskState } from '@fe/shared';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
@@ -62,7 +62,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['taskId', 'title', 'createdAt'];
   dataSource = new MatTableDataSource<Task>([]);
 
-  breadcrumbItems: UI.BreadcrumbItem[] = [
+  breadcrumbItems: BreadcrumbItem[] = [
     {
       title: 'Tasks',
       routerLink: '/dashboard/tasks',

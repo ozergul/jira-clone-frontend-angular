@@ -5,7 +5,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'molecules-select',
   template: `
-    <div class="form-group">
+    <div class="form-group mb-0">
       <label class="label">{{ label | translate }} <span *ngIf="required" class="icon-required">*</span></label>
       <ng-select
         [(ngModel)]="value"

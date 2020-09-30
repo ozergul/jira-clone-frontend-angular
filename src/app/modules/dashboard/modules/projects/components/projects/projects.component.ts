@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { IPaginationMeta, Pagination, Project, ProjectsGet, ProjectState, UI } from '@fe/shared';
+import { BreadcrumbItem, IPaginationMeta, Pagination, Project, ProjectsGet, ProjectState } from '@fe/shared';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -58,7 +58,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['code', 'title', 'description'];
   dataSource = new MatTableDataSource<Project>([]);
 
-  breadcrumbItems: UI.BreadcrumbItem[] = [
+  breadcrumbItems: BreadcrumbItem[] = [
     {
       title: 'Projects',
       routerLink: '/dashboard/projects',

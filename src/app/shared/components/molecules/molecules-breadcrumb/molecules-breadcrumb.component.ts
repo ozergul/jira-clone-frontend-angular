@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { UI } from '@fe/shared';
+import { BreadcrumbItem } from '../../../models/ui';
 
 @Component({
   selector: 'molecules-breadcrumb',
@@ -30,5 +30,5 @@ import { UI } from '@fe/shared';
 })
 export class MoleculesBreadcrumbComponent {
   @Input()
-  breadcrumbItems: UI.BreadcrumbItem[] = [];
+  breadcrumbItems: BreadcrumbItem[] = [];
 }

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { FormGroup, Validators } from '@angular/forms';
 import {
   AbstractCrudComponent,
+  BreadcrumbItem,
   CreateProjectDto,
   extractError,
   ModalService,
@@ -13,7 +14,6 @@ import {
   ProjectUpdate,
   ToasterError,
   ToasterSuccess,
-  UI,
   UpdateProjectDto,
 } from '@fe/shared';
 import { Navigate } from '@ngxs/router-plugin';
@@ -35,7 +35,7 @@ export class ProjectComponent extends AbstractCrudComponent implements OnInit {
 
   project: Project;
 
-  breadcrumbItems: UI.BreadcrumbItem[] = [
+  breadcrumbItems: BreadcrumbItem[] = [
     {
       title: 'Projects',
       routerLink: '/dashboard/projects',

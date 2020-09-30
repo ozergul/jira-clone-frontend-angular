@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { UI } from '../../models';
 import { UIService } from '../../services/rest';
 import { GetCreateTaskConfig, GetLoginHeader } from '../actions/ui.actions';
 import { tap } from 'rxjs/operators';
+import { CreateTaskConfig, LoginHeader } from '../../models/ui';
 
 export namespace UIStateModel {
   export const NAME = 'UIState';
   export interface State {
-    createTaskConfig: UI.CreateTaskConfig;
-    loginHeader: UI.LoginHeader;
+    createTaskConfig: CreateTaskConfig;
+    loginHeader: LoginHeader;
   }
   export const DEFAULTS = {
     createTaskConfig: null,

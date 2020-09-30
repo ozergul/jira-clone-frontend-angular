@@ -69,6 +69,22 @@
 
       <div class="w-100"></div>
 
+      <div class="col-md-5 mb-2">
+        <molecules-select
+          [required]="true"
+          [items]="users"
+          bindLabel="fullName"
+          bindValue="id"
+          label="Assignee"
+          formControlName="assigneeId"
+          errorMessages
+        >
+        </molecules-select>
+        <a class="small" href="javascript:void(0)" (click)="assignToMe()">{{ 'Assign to me' | translate }}</a>
+      </div>
+
+      <div class="w-100"></div>
+
       <div class="col-md-5">
         <atoms-input [required]="true" inputLabel="Task title" formControlName="title" errorMessages> </atoms-input>
       </div>

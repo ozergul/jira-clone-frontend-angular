@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { Navigate } from '@ngxs/router-plugin';
 import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { UI } from '../../../models';
 import {
   AuthLogout,
   GetLoginHeader,
@@ -14,6 +13,7 @@ import {
 } from '../../../store/actions';
 import { AuthState, UIState } from '../../../store/states';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { LoginHeader } from '../../../models/ui';
 
 @UntilDestroy()
 @Component({
@@ -40,7 +40,7 @@ export class LayoutDefaultComponent {
   isAuthenticated$: Observable<boolean>;
 
   @Select(UIState.loginHeader)
-  loginHeader$: Observable<UI.LoginHeader>;
+  loginHeader$: Observable<LoginHeader>;
 
   constructor(private store: Store, private actions$: Actions) {
     this.actions$
