@@ -2,7 +2,16 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthState, JwtInterceptor, LanguageHandler, ProjectState, SharedModule, TaskState, UIState } from '@fe/shared';
+import {
+  AuthState,
+  JwtInterceptor,
+  LanguageHandler,
+  LoaderHandler,
+  ProjectState,
+  SharedModule,
+  TaskState,
+  UIState,
+} from '@fe/shared';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
@@ -49,7 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
     {
       provide: APP_INITIALIZER,
-      deps: [LanguageHandler],
+      deps: [LanguageHandler, LoaderHandler],
       useFactory: () => () => {},
       multi: true,
     },
