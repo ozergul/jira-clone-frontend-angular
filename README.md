@@ -10,11 +10,11 @@ This project uses as backend this repo: https://github.com/ozergul/jira-clone-ba
 
 ## Screenshots
 
-https://i.imgur.com/haFXSB9.png
-https://i.imgur.com/Jowyej5.png
-https://i.imgur.com/e6AeRSC.png
-https://i.imgur.com/BnXu1iX.png
-https://i.imgur.com/jscn3Ng.png
+- https://i.imgur.com/haFXSB9.png
+- https://i.imgur.com/Jowyej5.png
+- https://i.imgur.com/e6AeRSC.png
+- https://i.imgur.com/BnXu1iX.png
+- https://i.imgur.com/jscn3Ng.png
 
 ## Development server
 
