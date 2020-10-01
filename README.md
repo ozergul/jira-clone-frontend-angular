@@ -6,6 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 <img src="https://i.imgur.com/1i5Mam6.png" />
 
+This project uses as backend this repo: https://github.com/ozergul/jira-clone-backend-nest 
 
 ## Development server
 
