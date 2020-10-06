@@ -27,7 +27,8 @@ export class LoginComponent {
     });
   }
 
-  submitForm(): void {
+  submitForm(event: any): void {
+    event.target.disabled = true;
     this.store
       .dispatch(
         new AuthLogin({
@@ -40,7 +41,13 @@ export class LoginComponent {
           const { returnUrl } = this.route.snapshot.params;
           this.store.dispatch(new Navigate([returnUrl || '/']));
         },
-        (err: HttpErrorResponse) => this.store.dispatch(new ToasterError(extractError(err))),
+        (err: HttpErrorResponse) => {
+          this.store.dispatch(new ToasterError(extractError(err)));
+          event.target.disabled = false;
+        },
+        () => {
+          event.target.disabled = false;
+        }
       );
   }
 
