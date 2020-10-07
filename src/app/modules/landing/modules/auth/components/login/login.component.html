@@ -15,7 +15,7 @@
   <div class="col-lg-4 col-12">
     <div class="card">
       <div class="card-body">
-        <form [formGroup]="form" (keydown.enter)="submitForm($event)">
+        <form [formGroup]="form" (keydown.enter)="submitForm(); submitClicked = true;">
           <atoms-input
             formControlName="email"
             inputLabel="Email"
@@ -33,7 +33,7 @@
               [iconName]="faLock"
             ></atoms-input>
           </div>
-          <button type="submit" class="btn btn-primary" (click)="submitForm($event)">{{ 'Login' | translate }}</button>
+          <button type="submit" [disabled]="submitClicked" class="btn btn-primary" (click)="submitForm(); submitClicked = true;">{{ 'Login' | translate }}</button>
         </form>
       </div>
     </div>

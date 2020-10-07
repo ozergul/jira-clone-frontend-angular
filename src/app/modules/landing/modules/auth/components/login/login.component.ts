@@ -16,6 +16,7 @@ import { Navigate } from '@ngxs/router-plugin';
 export class LoginComponent {
   faEnvelope = faEnvelope;
   faLock = faLock;
+  submitClicked = false;
 
   form: FormGroup;
 
@@ -27,8 +28,7 @@ export class LoginComponent {
     });
   }
 
-  submitForm(event: any): void {
-    event.target.disabled = true;
+  submitForm(): void {
     this.store
       .dispatch(
         new AuthLogin({
@@ -43,10 +43,10 @@ export class LoginComponent {
         },
         (err: HttpErrorResponse) => {
           this.store.dispatch(new ToasterError(extractError(err)));
-          event.target.disabled = false;
+          this.submitClicked = false;
         },
         () => {
-          event.target.disabled = false;
+          this.submitClicked = false;
         }
       );
   }
